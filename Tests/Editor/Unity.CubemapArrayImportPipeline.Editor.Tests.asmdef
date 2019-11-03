@@ -1,0 +1,17 @@
+{
+    "name": "Unity.CubemapArrayImportPipeline.Editor.Tests",
+    "references": [
+        "GUID:da500ddb034cfc34c8c16bcf2b37732c"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
