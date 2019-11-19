@@ -3,7 +3,7 @@
 Unity has no built-in import pipeline for cubemap arrays in Unity 2020.1 and earlier versions yet. This is the relevant quote from their documentation:
 > Cubemap arrays do not have an import pipeline for them, and must be created from code, either at runtime or in editor scripts. ([link](https://docs.unity3d.com/ScriptReference/CubemapArray.html))
 
-The CubemapArray Import Pipeline package you're currently looking at tries to fill the gap of that missing import pipeline in Unity and provides an implementation to create and modify texture arrays.
+The CubemapArray Import Pipeline package you're currently looking at tries to fill the gap of that missing import pipeline and provides an implementation to create and modify cubemap arrays.
 
 This CubemapArray Import Pipeline is an editor extension, it does not contain code that is required at runtime.
 
@@ -14,6 +14,7 @@ This CubemapArray Import Pipeline is an editor extension, it does not contain co
 # Installation
 
 In order to use the CubemapArray Import Pipeline, you have to add the package to your project. As of Unity 2019.3, Unity supports to add packages from git through the Package Manager window.
+
 In Unity's Package Manager, choose "Add package from git URL" and insert of one the Package URL you can find below.
 
 ## Package URL's
@@ -28,11 +29,11 @@ In Unity's Package Manager, choose "Add package from git URL" and insert of one 
 
 ## Overview
 
-The CubemapArray Import Pipeline uses Unity's [ScriptImporter](https://docs.unity3d.com/Manual/ScriptedImporters.html). ScriptImporter allows to implement custom asset importers in C# for file formats not natively supported by Unity.
+This CubemapArray Import Pipeline uses Unity's [ScriptImporter](https://docs.unity3d.com/Manual/ScriptedImporters.html). ScriptImporter allows to implement custom asset importers in C# for file formats not natively supported by Unity.
 
-While CubemapArray is natively supported by Unity, it just has no import pipeline yet. What I created is a ScriptImporter that handles files ending with .cubemaparray as a CubemapArray object.
+CubemapArray is natively supported by Unity, it just has no import pipeline yet. What I created is a ScriptImporter that handles files ending with .cubemaparray as a CubemapArray object.
 
-Combined with a custom [ScriptedImporterEditor](ScriptedImporterEditor), I'm quite happy with the result, as the integration feels quite smooth.
+Combined with a custom [ScriptedImporterEditor](ScriptedImporterEditor), I'm pretty happy with the result, as the integration feels quite smooth and you hopefully can't tell that it's not part of built-in Unity.
 
 
 ## Texture format and size
