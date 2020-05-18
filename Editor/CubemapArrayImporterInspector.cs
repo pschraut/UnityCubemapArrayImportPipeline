@@ -1,7 +1,19 @@
 ﻿//
-// Cubemap Array Importer for Unity. Copyright (c) 2019 Peter Schraut (www.console-dev.de). See LICENSE.md
+// Cubemap Array Importer for Unity. Copyright (c) 2019-2020 Peter Schraut (www.console-dev.de). See LICENSE.md
 // https://github.com/pschraut/UnityCubemapArrayImportPipeline
 //
+
+#if UNITY_2020_1_OR_NEWER
+// Unity 2020.1 and newer has a built-in Cubemap preview inspector
+#else
+// Unity 2019.3 does not have a CubemapArray preview in the inspector.
+// I implemented a custom preview instead, which you can find in this file.
+// I use this define to toggle the custom preview, because newer Unity
+// versions have built-in support and the built-in CubemapArray preview is
+// way better than what I implemented.
+#define USE_CUSTOM_PREVIEW
+#endif
+
 #pragma warning disable IDE1006, IDE0017
 using System.Collections;
 using System.Collections.Generic;
@@ -33,10 +45,13 @@ namespace Oddworm.EditorFramework
             public readonly GUIContent anisotropicFilteringForceEnable = new GUIContent("Anisotropic filtering is enabled for all textures in Quality Settings.");
             public readonly GUIContent texturesHeaderLabel = new GUIContent("Cubemaps", "Drag&drop one or multiple textures here to add them to the list.");
             public readonly GUIContent removeItemButton = new GUIContent("", EditorGUIUtility.FindTexture("Toolbar Minus"), "Remove from list.");
+
+#if USE_CUSTOM_PREVIEW
             public readonly GUIContent prevSliceIcon = EditorGUIUtility.TrIconContent("Animation.PrevKey", "Go to previous slice in the array.");
             public readonly GUIContent nextSliceIcon = EditorGUIUtility.TrIconContent("Animation.NextKey", "Go to next slice in the array.");
             public readonly GUIStyle stepSlice = "TimeScrubberButton";
             public readonly GUIStyle sliceScrubber = "TimeScrubber";
+#endif
         }
 
         static Styles s_Styles;
@@ -55,10 +70,12 @@ namespace Oddworm.EditorFramework
         SerializedProperty m_Cubemaps = null;
         ReorderableList m_TextureList = null;
 
+#if USE_CUSTOM_PREVIEW
         Cubemap m_PreviewCubemap = null;
         Editor m_PreviewEditor = null;
         int m_PreviewSlice = 0;
         bool m_PreviewDirty = true;
+#endif
 
         public override void OnEnable()
         {
@@ -74,13 +91,17 @@ namespace Oddworm.EditorFramework
             m_TextureList.drawElementCallback += OnDrawElement;
             m_TextureList.drawHeaderCallback += OnDrawHeader;
 
+#if USE_CUSTOM_PREVIEW
             CreatePreview();
             m_PreviewDirty = false;
+#endif
         }
 
         public override void OnDisable()
         {
+#if USE_CUSTOM_PREVIEW
             DestroyPreview();
+#endif
 
             base.OnDisable();
         }
@@ -124,11 +145,13 @@ namespace Oddworm.EditorFramework
             serializedObject.ApplyModifiedProperties();
             ApplyRevertGUI();
 
+#if USE_CUSTOM_PREVIEW
             if (m_PreviewDirty)
             {
                 m_PreviewDirty = false;
                 CreatePreview();
             }
+#endif
         }
 
         void OnDrawHeader(Rect rect)
@@ -275,6 +298,7 @@ namespace Oddworm.EditorFramework
             DragAndDrop.AcceptDrag();
         }
 
+#if USE_CUSTOM_PREVIEW
         protected override void Apply()
         {
             base.Apply();
@@ -396,6 +420,6 @@ namespace Oddworm.EditorFramework
                 m_PreviewEditor = null;
             }
         }
-
+#endif
     }
 }
