@@ -1,9 +1,10 @@
 {
   "name": "com.oddworm.cubemaparrayimportpipeline",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "displayName": "CubemapArray Import Pipeline",
   "description": "A cubemap array is a collection of same size/format/flags cubemap textures that look like a single object to the GPU.\n\nUnity has no built-in import pipeline for cubemap arrays in Unity 2020.1 and earlier versions.\n\nThe CubemapArray Import Pipeline package you're currently looking at tries to fill the gap of that missing import pipeline in Unity and provides an implementation to create and modify cubemap arrays.",
   "unity": "2019.3",
+  "documentationUrl": "https://github.com/pschraut/UnityCubemapArrayImportPipeline",
   "dependencies": {
 	"com.unity.test-framework": "1.1.3"
   },
