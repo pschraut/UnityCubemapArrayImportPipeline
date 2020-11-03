@@ -82,6 +82,11 @@ namespace Oddworm.EditorFramework
         bool m_PreviewDirty = true;
 #endif
 
+        public override bool showImportedObject
+        {
+            get { return false; }
+        }
+
         public override void OnEnable()
         {
             base.OnEnable();
