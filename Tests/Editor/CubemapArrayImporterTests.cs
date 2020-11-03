@@ -1,14 +1,10 @@
 ﻿//
-// Cubemap Array Importer for Unity. Copyright (c) 2019 Peter Schraut (www.console-dev.de). See LICENSE.md
+// Cubemap Array Importer for Unity. Copyright (c) 2019-2020 Peter Schraut (www.console-dev.de). See LICENSE.md
 // https://github.com/pschraut/UnityCubemapArrayImportPipeline
 //
-using System.Collections;
-using System.Collections.Generic;
 using NUnit.Framework;
-using UnityEngine;
-using UnityEngine.TestTools;
 using UnityEditor;
-using Oddworm.EditorFramework;
+using UnityEngine;
 
 namespace Oddworm.EditorFramework.Tests
 {
