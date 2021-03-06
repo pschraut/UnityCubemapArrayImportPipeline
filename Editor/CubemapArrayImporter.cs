@@ -1,5 +1,5 @@
 ﻿//
-// Cubemap Array Importer for Unity. Copyright (c) 2019-2020 Peter Schraut (www.console-dev.de). See LICENSE.md
+// Cubemap Array Importer for Unity. Copyright (c) 2019-2021 Peter Schraut (www.console-dev.de). See LICENSE.md
 // https://github.com/pschraut/UnityCubemapArrayImportPipeline
 //
 #pragma warning disable IDE1006, IDE0017
@@ -18,7 +18,7 @@ namespace Oddworm.EditorFramework
 {
     [CanEditMultipleObjects]
     [HelpURL("https://docs.unity3d.com/ScriptReference/CubemapArray.html")]
-    [ScriptedImporter(1, CubemapArrayImporter.kFileExtension)]
+    [ScriptedImporter(k_VersionNumber, kFileExtension)]
     public class CubemapArrayImporter : ScriptedImporter
     {
         [Tooltip("Selects how the Texture behaves when tiled.")]
@@ -34,7 +34,7 @@ namespace Oddworm.EditorFramework
         [SerializeField]
         int m_AnisoLevel = 1;
 
-        [Tooltip("A list of cubemaps that are added to the texture array.")]
+        [Tooltip("A list of cubemaps that are added to the CubemapArray asset.")]
         [SerializeField]
         List<Cubemap> m_Cubemaps = new List<Cubemap>();
 
@@ -108,6 +108,12 @@ namespace Oddworm.EditorFramework
         /// </summary>
         public const string kFileExtension = "cubemaparray";
 
+#if UNITY_2020_1_OR_NEWER
+        const int k_VersionNumber = 202010;
+#else
+        const int k_VersionNumber = 201940;
+#endif
+
         public override void OnImportAsset(AssetImportContext ctx)
         {
             var width = 64;
@@ -180,18 +186,32 @@ namespace Oddworm.EditorFramework
                 }
             }
 
-            // Mark all input textures as dependency to the texture array.
-            // This causes the texture array to get re-generated when any input texture changes or when the build target changed.
+            // Mark all input textures as dependency to the CubemapArray.
+            // This causes the CubemapArray to get re-generated when any input texture changes or when the build target changed.
             for (var n = 0; n < m_Cubemaps.Count; ++n)
             {
                 var source = m_Cubemaps[n];
                 if (source != null)
                 {
                     var path = AssetDatabase.GetAssetPath(source);
+#if UNITY_2020_1_OR_NEWER
+                    ctx.DependsOnArtifact(path);
+#else
                     ctx.DependsOnSourceAsset(path);
+#endif
                 }
             }
 
+#if !UNITY_2020_1_OR_NEWER
+            // This value is not really used in this importer,
+            // but getting the build target here will add a dependency to the current active buildtarget.
+            // Because DependsOnArtifact does not exist in 2019.4, adding this dependency on top of the DependsOnSourceAsset
+            // will force a re-import when the target platform changes in case it would have impacted any texture this importer depends on.
+            var buildTarget = ctx.selectedBuildTarget;
+#endif
+
+            // this should have been named "MainAsset" to be conform with Unity, but changing it now
+            // would break all existing CubemapArray assets, so we don't touch it.
             ctx.AddObjectToAsset("CubemapArray", cubemapArray);
             ctx.SetMainObject(cubemapArray);
 
