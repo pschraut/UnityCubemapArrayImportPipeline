@@ -44,6 +44,7 @@ namespace Oddworm.EditorFramework
             public readonly GUIContent wrapModeLabel = new GUIContent("Wrap Mode", "Select how the Texture behaves when tiled.");
             public readonly GUIContent filterModeLabel = new GUIContent("Filter Mode", "Select how the Texture is filtered when it gets stretched by 3D transformations.");
             public readonly GUIContent anisoLevelLabel = new GUIContent("Aniso Level", "Increases Texture quality when viewing the Texture at a steep angle. Good for floor and ground Textures.");
+            public readonly GUIContent readableLabel = new GUIContent("Read/Write Enabled", "Enable to be able to access the texture data from scripts.");
             public readonly GUIContent anisotropicFilteringDisable = new GUIContent("Anisotropic filtering is disabled for all textures in Quality Settings.");
             public readonly GUIContent anisotropicFilteringForceEnable = new GUIContent("Anisotropic filtering is enabled for all textures in Quality Settings.");
             public readonly GUIContent texturesHeaderLabel = new GUIContent("Cubemaps", "Drag&drop one or multiple textures here to add them to the list.");
@@ -70,6 +71,7 @@ namespace Oddworm.EditorFramework
         SerializedProperty m_WrapMode = null;
         SerializedProperty m_FilterMode = null;
         SerializedProperty m_AnisoLevel = null;
+        SerializedProperty m_IsReadable = null;
         SerializedProperty m_Cubemaps = null;
         ReorderableList m_TextureList = null;
 
@@ -92,6 +94,7 @@ namespace Oddworm.EditorFramework
             m_WrapMode = serializedObject.FindProperty("m_WrapMode");
             m_FilterMode = serializedObject.FindProperty("m_FilterMode");
             m_AnisoLevel = serializedObject.FindProperty("m_AnisoLevel");
+            m_IsReadable = serializedObject.FindProperty("m_IsReadable");
             m_Cubemaps = serializedObject.FindProperty("m_Cubemaps");
 
             m_TextureList = new ReorderableList(serializedObject, m_Cubemaps);
@@ -130,6 +133,7 @@ namespace Oddworm.EditorFramework
             EditorGUILayout.PropertyField(m_WrapMode, styles.wrapModeLabel);
             EditorGUILayout.PropertyField(m_FilterMode, styles.filterModeLabel);
             EditorGUILayout.PropertyField(m_AnisoLevel, styles.anisoLevelLabel);
+            EditorGUILayout.PropertyField(m_IsReadable, styles.readableLabel);
 
             // If Aniso is used, check quality settings and displays some info.
             // I've only added this, because Unity is doing it in the Texture Inspector as well.

@@ -34,6 +34,9 @@ namespace Oddworm.EditorFramework
         [SerializeField]
         int m_AnisoLevel = 1;
 
+        [SerializeField]
+        bool m_IsReadable = false;
+
         [Tooltip("A list of cubemaps that are added to the CubemapArray asset.")]
         [SerializeField]
         List<Cubemap> m_Cubemaps = new List<Cubemap>();
@@ -104,14 +107,24 @@ namespace Oddworm.EditorFramework
         }
 
         /// <summary>
+        /// Set this to true if you want texture data to be readable from scripts.
+        /// Set it to false to prevent scripts from reading texture data.
+        /// </summary>
+        public bool isReadable
+        {
+            get { return m_IsReadable; }
+            set { m_IsReadable = value; }
+        }
+
+        /// <summary>
         /// The file extension used for CubemapArray assets without leading dot.
         /// </summary>
         public const string kFileExtension = "cubemaparray";
 
 #if UNITY_2020_1_OR_NEWER
-        const int k_VersionNumber = 202010;
+        const int k_VersionNumber = 202011;
 #else
-        const int k_VersionNumber = 201940;
+        const int k_VersionNumber = 201941;
 #endif
 
         public override void OnImportAsset(AssetImportContext ctx)
@@ -212,6 +225,7 @@ namespace Oddworm.EditorFramework
 
             // this should have been named "MainAsset" to be conform with Unity, but changing it now
             // would break all existing CubemapArray assets, so we don't touch it.
+            cubemapArray.Apply(false, !m_IsReadable);
             ctx.AddObjectToAsset("CubemapArray", cubemapArray);
             ctx.SetMainObject(cubemapArray);
 
