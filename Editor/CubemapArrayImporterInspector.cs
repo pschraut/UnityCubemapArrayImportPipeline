@@ -1,5 +1,5 @@
 ﻿//
-// Cubemap Array Importer for Unity. Copyright (c) 2019-2020 Peter Schraut (www.console-dev.de). See LICENSE.md
+// Cubemap Array Importer for Unity. Copyright (c) 2019-2022 Peter Schraut (www.console-dev.de). See LICENSE.md
 // https://github.com/pschraut/UnityCubemapArrayImportPipeline
 //
 
@@ -14,7 +14,7 @@
 #define USE_CUSTOM_PREVIEW
 #endif
 
-#pragma warning disable IDE1006, IDE0017
+#pragma warning disable IDE1006, IDE0017, IDE0090
 using UnityEngine;
 using UnityEditor;
 using UnityEditorInternal;
@@ -240,7 +240,7 @@ namespace Oddworm.EditorFramework
 
                 r = rect;
                 rect.width = 24;
-                EditorGUI.LabelField(rect, new GUIContent(string.Format("{0}", index), "Slice"), isFocused ? EditorStyles.whiteLabel : EditorStyles.label);
+                EditorGUI.LabelField(rect, new GUIContent($"{index}", "Slice"), isFocused ? EditorStyles.whiteLabel : EditorStyles.label);
                 rect = r;
                 rect.width -= 24;
                 rect.x += 24;
@@ -390,7 +390,7 @@ namespace Oddworm.EditorFramework
                 styles.sliceScrubber.Draw(r, GUIContent.none, -1);
 
                 if (m_PreviewSlice > 0)
-                    EditorGUI.DropShadowLabel(new Rect(r.x, r.y + toolbarHeight, r.width, 20), string.Format("Slice {0}", m_PreviewSlice));
+                    EditorGUI.DropShadowLabel(new Rect(r.x, r.y + toolbarHeight, r.width, 20), $"Slice {m_PreviewSlice}");
 
                 // The cubemap editor overdraw our buttons. Just draw them again.
                 using (new EditorGUI.DisabledGroupScope(m_PreviewSlice <= 0))
