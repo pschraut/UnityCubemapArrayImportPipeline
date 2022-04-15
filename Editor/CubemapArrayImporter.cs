@@ -131,7 +131,7 @@ namespace Oddworm.EditorFramework
         {
             var width = 64;
             var mipmapEnabled = true;
-            var textureFormat = TextureFormat.ARGB32;
+            var textureFormat = TextureFormat.RGBA32;
             var srgbTexture = true;
 
             // Check if the input textures are valid to be used to build the texture array.
@@ -150,10 +150,24 @@ namespace Oddworm.EditorFramework
                 srgbTexture = textureImporter.sRGBTexture;
             }
 
-            // Create the texture array.
-            // When the texture array asset is being created, there are no input textures added yet,
-            // thus we do Max(1, Count) to make sure to add at least 1 slice.
-            var cubemapArray = new CubemapArray(width, Mathf.Max(1, m_Cubemaps.Count), textureFormat, mipmapEnabled, !srgbTexture);
+            CubemapArray cubemapArray;
+            try
+            {
+                // Create the texture array.
+                // When the texture array asset is being created, there are no input textures added yet,
+                // thus we do Max(1, Count) to make sure to add at least 1 slice.
+                cubemapArray = new CubemapArray(width, Mathf.Max(1, m_Cubemaps.Count), textureFormat, mipmapEnabled, !srgbTexture);
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogException(e);
+                ctx.LogImportError($"Import failed '{ctx.assetPath}'.", ctx.mainObject);
+
+                isValid = false;
+                textureFormat = TextureFormat.RGBA32;
+                cubemapArray = new CubemapArray(width, Mathf.Max(1, m_Cubemaps.Count), textureFormat, mipmapEnabled, !srgbTexture);
+            }
+
             cubemapArray.wrapMode = m_WrapMode;
             cubemapArray.filterMode = m_FilterMode;
             cubemapArray.anisoLevel = m_AnisoLevel;

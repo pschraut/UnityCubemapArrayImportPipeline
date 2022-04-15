@@ -4,6 +4,11 @@ All notable changes to this package are documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.5.0] - 2022-??-??
+### Fixed
+ - Fixed that when ```new CubemapArray``` causes an exception in the importer, that the CubemapArray asset is left in a broken state. Now it will create a magenta CubemapArray instead and log an error to the console.
+
+
 ## [1.4.0] - 2022-03-11
 After installing this update, it will trigger a reimport of all CubemapArray assets in the project and CubemapArray's will no longer be readable via scripts by default.
 ### Added
