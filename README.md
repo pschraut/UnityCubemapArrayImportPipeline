@@ -1,6 +1,6 @@
 # CubemapArray Import Pipeline for Unity
 
-Unity has no built-in import pipeline for cubemap arrays in Unity 2020.1 and earlier versions yet. This is the relevant quote from their documentation:
+Unity has no built-in import pipeline for cubemap arrays in Unity 2022.1 and earlier versions yet. This is the relevant quote from their documentation:
 > Cubemap arrays do not have an import pipeline for them, and must be created from code, either at runtime or in editor scripts. ([link](https://docs.unity3d.com/ScriptReference/CubemapArray.html))
 
 The CubemapArray Import Pipeline package you're currently looking at tries to fill the gap of that missing import pipeline and provides an implementation to create and modify cubemap arrays.
@@ -21,6 +21,7 @@ In Unity's Package Manager, choose "Add package from git URL" and insert one of 
 
 | Version  |     Link      |
 |----------|---------------|
+| 1.5.0 | https://github.com/pschraut/UnityCubemapArrayImportPipeline.git#1.5.0 |
 | 1.4.0 | https://github.com/pschraut/UnityCubemapArrayImportPipeline.git#1.4.0 |
 | 1.3.0 | https://github.com/pschraut/UnityCubemapArrayImportPipeline.git#1.3.0 |
 | 1.2.0 | https://github.com/pschraut/UnityCubemapArrayImportPipeline.git#1.2.0 |
