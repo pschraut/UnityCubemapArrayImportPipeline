@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [1.5.0] - 2022-??-??
 ### Fixed
  - Fixed that when ```new CubemapArray``` causes an exception in the importer, that the CubemapArray asset is left in a broken state. Now it will create a magenta CubemapArray instead and log an error to the console.
+ - Perform source texture dependency registration as very first step during the import, to fix that Unity triggers a reimport of the CubemapArray asset when changing a dependency, on an earlier failed CubemapArray import.
 
 
 ## [1.4.0] - 2022-03-11
